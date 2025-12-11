@@ -1,12 +1,12 @@
-# Social Media Profile Launcher
+# Land Better Jobs Launcher
 
-[![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-tomato.svg?style=flat&logo=git)](https://github.com/AnjaliSharma1234/SocialMediaProfileLauncher/issues) [![GitHub stars](https://img.shields.io/github/stars/AnjaliSharma1234/SocialMediaProfileLauncher.svg?logo=github)](https://github.com/AnjaliSharma1234/SocialMediaProfileLauncher/stargazers) [![GitHub forks](https://img.shields.io/github/forks/AnjaliSharma1234/SocialMediaProfileLauncher.svg?logo=github&color=teal)](https://github.com/AnjaliSharma1234/SocialMediaProfileLauncher/network) [![GitHub top language](https://img.shields.io/github/languages/top/AnjaliSharma1234/SocialMediaProfileLauncher?color=yellow&logo=javascript)](https://github.com/AnjaliSharma1234/SocialMediaProfileLauncher)
+[![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-tomato.svg?style=flat&logo=git)](https://github.com/theanjalisharmaaa/LandBetterJobsLauncher/issues) [![GitHub stars](https://img.shields.io/github/stars/theanjalisharmaaa/LandBetterJobsLauncher.svg?logo=github)](https://github.com/theanjalisharmaaa/LandBetterJobsLauncher/stargazers) [![GitHub forks](https://img.shields.io/github/forks/theanjalisharmaaa/LandBetterJobsLauncher.svg?logo=github&color=teal)](https://github.com/theanjalisharmaaa/LandBetterJobsLauncher/network) [![GitHub top language](https://img.shields.io/github/languages/top/theanjalisharmaaa/LandBetterJobsLauncher?color=yellow&logo=javascript)](https://github.com/theanjalisharmaaa/LandBetterJobsLauncher)
 
-A simple Chrome Extension for combining all the social media profiles at one place.
+A Chrome extension to quickly copy social links and attach your resume while applying to jobs.
 
 This is motivated by [Traversy Media tutorial on Google Chrome Extention](https://www.youtube.com/watch?v=wHZCYi1K664).
 
-### Screenshot of the Chrome Extention
+### Screenshot of the Chrome Extension
 
 ![](images/Screenshot.png)
 

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
 
-  "name": "Land Better Jobs Links Launcher",
-  "description": "Quick launch Social Media Profiles",
+  "name": "Land Better Jobs Launcher",
+  "description": "Launch your links and resume in one click for job applications",
   "version": "1.0.0",
   "icons": { "128": "LBJ Favicon.png" },
   "background": {
