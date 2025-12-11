@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Social Profile Quick Launcher</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"/>
+    <title>Land Better Jobs Launcher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
     <style>
-      /* Modal Structure */
+      * {
+        box-sizing: border-box;
+      }
 
       html,
       body {
-        font-family: "Open Sans", sans-serif;
+        font-family: "Inter", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         font-size: 14px;
         margin: 0;
         min-height: 180px;
         padding: 0;
-        width: 384px;
+        width: 420px;
+        background: #ffffff;
       }
 
       h1 {
-        font-family: "Menlo", monospace;
-        font-size: 22px;
-        font-weight: 400;
+        font-family: "Inter", sans-serif;
+        font-size: 18px;
+        font-weight: 600;
         margin: 0;
-        color: #2f5876;
+        color: #1a1a1a;
+        letter-spacing: -0.3px;
       }
 
       a:link,
       a:visited {
-        color: #000000;
+        color: #1a1a1a;
         outline: 0;
         text-decoration: none;
       }
@@ -38,21 +42,118 @@
 
       .modal-header {
         align-items: center;
-        border-bottom: 0.5px solid #dadada;
+        border-bottom: 1px solid #f0f0f0;
+        background: linear-gradient(135deg, #ffffff 0%, #fff8f5 100%);
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
       }
 
-      .modal-content {
-        padding: 0 22px;
+      .redirect-icon {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #FF4400;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
       }
 
-      .modal-icons {
-        border-top: 0.5px solid #dadada;
-        height: 60px;
-        width: 100%;
+      .redirect-icon:hover {
+        color: #e63d00;
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .section {
+        padding: 16px 20px 10px;
+        background: #ffffff;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .section-header h2 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a1a;
+      }
+
+      #profile-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a1a;
+      }
+
+      .brand-name {
+        color: #FF4400;
+        font-weight: 700;
+      }
+
+      .section-subtext {
+        margin: 2px 0 0 0;
+        font-size: 12px;
+        color: #666666;
+        line-height: 1.4;
+      }
+
+      .section-cta {
+        color: #fff !important;
+        border-radius: 8px;
+        padding: 8px 14px;
+        line-height: 1.2;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #FF4400;
+        border: none;
+        box-shadow: 0 2px 8px rgba(255, 68, 0, 0.25);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .section-cta:hover {
+        background-color: #e63d00;
+        box-shadow: 0 4px 12px rgba(255, 68, 0, 0.35);
+        transform: translateY(-1px);
+      }
+
+      #title_text {
+        font-size: 13px;
+        color: #666666;
+        margin: 0;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      #name {
+        color: #FF4400;
+        font-weight: 600;
+      }
+
+      .card {
+        border: 1px solid #f0f0f0;
+        border-radius: 10px;
+        padding: 14px 16px;
+        background: #ffffff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
       }
 
       .logo {
-        padding: 16px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
 
       .logo-icon {
@@ -62,104 +163,315 @@
 
       .flex-container {
         display: flex;
-        justify-content: space-between;
-        padding: 10px 22px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
       }
 
       .flex {
         opacity: 1;
-        transition: opacity 0.2s ease-in-out;
-        width: 120px;
+        transition: all 0.2s ease-in-out;
+        flex: 0 0 calc(20% - 7px);
+        min-width: 60px;
+        text-align: center;
+        padding: 8px 4px;
+        border-radius: 8px;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        cursor: move;
+        user-select: none;
       }
 
       .flex:hover {
-        opacity: 0.4;
+        opacity: 1;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 68, 0, 0.15);
+        background: #fff8f5;
+      }
+
+      .flex:hover:not(.dragging) {
+        cursor: pointer;
+      }
+
+      .flex.dragging {
+        opacity: 0.5;
+        cursor: grabbing;
+      }
+
+      .flex.drag-over {
+        border: 2px dashed #FF4400;
+      }
+
+      .copy-toast {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #FF4400;
+        color: #ffffff;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        z-index: 10000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        box-shadow: 0 4px 12px rgba(255, 68, 0, 0.4);
+      }
+
+      .copy-toast.show {
+        opacity: 1;
       }
 
       .flex .fa {
-        font-size: 40px;
-        color: #3c797b;
+        font-size: 32px;
+        color: #FF4400;
+        display: block;
+        margin-bottom: 6px;
+        transition: transform 0.2s ease;
       }
-      .btn{
-        color: #fff !important;
-        border-radius: .25rem;
-        padding: .375rem .75rem;
-        line-height: 1rem;
-        font-size: 1rem; 
-        text-align: center;
-        vertical-align: middle;
-        background-color: #007bff;
-        border: 1px solid 007bff;
-        margin-top: .25rem;
-        margin-bottom: .25rem;
-        box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.3);
+
+      .flex:hover .fa {
+        transform: scale(1.1);
       }
-      .btn:hover{
-        color: #fff;
-        background-color: #0069d9;
-        border-color: #0062cc;
+
+      .flex a div {
+        visibility: visible;
+        font-size: 11px;
+        color: #666666;
+        font-weight: 500;
+        margin-top: 4px;
+        transition: color 0.2s ease;
       }
-      .flex a div{
-        visibility: hidden;
+
+      .flex:hover a div {
+        color: #FF4400;
       }
-      .flex:hover{
+
+      .flex:hover {
         cursor: pointer;
       }
-      .flex:hover div{
-        visibility: visible;
+
+      .btn {
+        color: #fff !important;
+        border-radius: 8px;
+        padding: 10px 24px;
+        line-height: 1.4;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #FF4400;
+        border: none;
+        margin: 0;
+        box-shadow: 0 2px 8px rgba(255, 68, 0, 0.25);
+        transition: all 0.2s ease;
+        display: inline-block;
+      }
+
+      .btn:hover {
+        color: #fff;
+        background-color: #e63d00;
+        box-shadow: 0 4px 12px rgba(255, 68, 0, 0.35);
+        transform: translateY(-1px);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .empty-state {
+        text-align: center;
+        color: #999;
+        padding: 12px 0;
+        width: 100%;
+        font-size: 13px;
+      }
+
+      .documents-section {
+        padding: 14px 20px 18px;
+        background: #ffffff;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .documents-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .documents-header h2 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a1a;
+        letter-spacing: -0.2px;
+      }
+
+      .documents-subtext {
+        margin: 2px 0 0 0;
+        font-size: 12px;
+        color: #666666;
+        line-height: 1.4;
+      }
+
+
+      .documents-container {
+        display: flex;
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .doc-card {
+        border: 1px solid #f0f0f0;
+        border-radius: 8px;
+        padding: 12px 14px;
+        background: #fff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        column-gap: 12px;
+        row-gap: 6px;
+        width: 100%;
+        align-items: center;
+      }
+
+      .doc-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0;
+      }
+
+      .doc-meta {
+        display: grid;
+        gap: 2px;
+        grid-column: 1 / span 1;
+      }
+
+      .doc-line {
+        font-size: 12px;
+        color: #1a1a1a;
+        line-height: 1.4;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .doc-line.muted {
+        color: #999;
+        font-size: 11px;
+      }
+
+      .doc-delete {
+        color: #FF4400;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .doc-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        justify-content: center;
+        grid-column: 2 / span 1;
+        align-self: stretch;
+      }
+
+      .doc-btn {
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 9px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        background: #ffffff;
+        color: #1a1a1a;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+        min-width: 98px;
+      }
+
+      .doc-btn.primary {
+        background: #FF4400;
+        color: #ffffff;
+        border-color: #FF4400;
+        box-shadow: 0 1px 6px rgba(255, 68, 0, 0.25);
+      }
+
+      .doc-btn.primary:hover {
+        background: #e63d00;
+        border-color: #e63d00;
+      }
+
+      .doc-btn:hover:not(:disabled) {
+        transform: translateY(-1px);
+      }
+
+      .doc-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .doc-status {
+        font-size: 11px;
+        color: #1a1a1a;
+        grid-column: 1 / span 2;
+      }
+
+      .doc-status.error {
+        color: #c0392b;
+      }
+
+      .doc-status.success {
+        color: #1b9448;
+      }
+
+      .hidden {
+        display: none;
       }
     </style>
     
   </head>
 
   <body>
-    <center>
-      <div class="modal-header">
-        <h1 class="logo">
-          Social Links Launcher
-        </h1>
-      </div>
-    </center>
-    <div class="modal-content">
-      <p id="title_text"><span id="name"></span>Social Media Profiles</p>
+    <div class="modal-header">
+      <h1 class="logo">
+        Land Better Jobs Launcher
+      </h1>
+      <a href="https://landbetterjobs.com/" target="_blank" class="redirect-icon" title="Visit Land Better Jobs">
+        <i class="fa fa-external-link"></i>
+      </a>
     </div>
-    <div class="modal-icons">
-      <div class="flex-container">
-        <div class="flex">
-          <a id="website_link" href="#!" target="_blank">
-            <i class="fa fa-globe" style="color:#3c797b "></i>
-            <div>Website</div>
-          </a>
+
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <h2 id="profile-title"><span id="name"></span>Profiles</h2>
+          <p class="section-subtext">Configure links to copy and paste directly</p>
         </div>
-         <div class="flex">
-          <a id="linkedin_link" href="#!" target="_blank">
-            <i class="fa fa-linkedin" style="color:#3c797b "></i>
-            <div>Linked</div>
-          </a>
-        </div>
-        <div class="flex">
-          <a id="medium_link" href="#!" target="_blank">
-            <i class="fa fa-medium" style="color:#3c797b "></i>
-            <div>Medium</div>
-          </a>
-        </div>
-        <div class="flex">
-          <a id="twitter_link" href="#!" target="_blank">
-            <i class="fa fa-twitter" style="color:#3c797b "></i>
-            <div>Twitter</div>
-          </a>
-        </div>
-        <div class="flex">
-          <a id="github_link" href="#!" target="_blank">
-            <i class="fa fa-github" style="color:#3c797b "></i>
-            <div>GitHub</div>
-          </a>
+        <a class="section-cta" role="button" href="edit.html">Edit Links</a>
+      </div>
+      <div class="card">
+        <div class="flex-container" id="links-container">
+          <!-- Links will be dynamically generated here -->
         </div>
       </div>
     </div>
-    <br>
-    <center><a class="btn" role="button" href="edit.html">Edit</a></center>
-    <br>
+
+    <div class="documents-section">
+      <div class="documents-header">
+        <div>
+          <h2>Resume</h2>
+          <p class="documents-subtext">Upload and attach your resume in one click to any job listing</p>
+        </div>
+      </div>
+      <div id="documents-container" class="documents-container"></div>
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>

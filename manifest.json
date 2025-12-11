@@ -1,16 +1,32 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
-  "name": "Profile Launcher",
+  "name": "Land Better Jobs Links Launcher",
   "description": "Quick launch Social Media Profiles",
   "version": "1.0.0",
-  "icons": { "128": "icon_128.png" },
-  "browser_action": {
-    "default_icon": "icon.png",
+  "icons": { "128": "LBJ Favicon.png" },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": "LBJ Favicon.png",
     "default_popup": "popup.html"
   },
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.workday.com/*",
+    "*://*.myworkdayjobs.com/*",
+    "*://*.lever.co/*",
+    "*://*.greenhouse.io/*",
+    "*://*.linkedin.com/*",
+    "*://*.indeed.com/*",
+    "*://*.ashbyhq.com/*",
+    "*://*.smartrecruiters.com/*",
+    "*://*/*"
   ]
 }
