@@ -23,21 +23,12 @@ Meet **Land Better Jobs Launcher** — your job-app sidekick. Keep every profile
 3) Open the popup, configure your links, upload your resume, done.
 
 ## Screenshots
-
-### Main Extension Interface
 ![Land Better Jobs Launcher - Main Interface](images/main-interface.png)
-
-The extension popup showing social media profiles, custom links configuration, and resume upload/attach functionality.
-
-### Resume Attachment Feature
 ![Resume Attachment to Job Boards](images/resume-attachment.png)
-
-One-click resume attachment to any job posting website. Compatible with 50+ job boards including Lever, Greenhouse, Ashby, LinkedIn, Google Jobs, and Indeed.
-
-### Setup Walkthrough
 ![Installation and Configuration Guide](images/setup-walkthrough.png)
 
 Three-step process: Install the extension, configure your social links, and upload your resume.
+Access all your social links and attach your resume to any job listing in just one click. 
 
 ## FAQ
 - **Where is my data stored?** Locally in your browser (`chrome.storage.local`).  
