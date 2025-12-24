@@ -71,26 +71,52 @@ async function deleteDocument(docType) {
   return stored;
 }
 
-async function attachDocumentToActiveTab(docType) {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if (!tab?.id) {
-    throw new Error('No active tab');
-  }
-
+async function attachDocumentToActiveTab(docType, sender) {
   const documents = await getDocuments();
   const doc = documents[docType];
   if (!doc) {
     throw new Error('Document not found');
   }
 
-  // Ensure content script is injected before sending message
-  await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    files: ['contentScript.js']
+  // With activeTab permission and content script loaded via manifest,
+  // we can use messaging to communicate with the content script
+  // The content script will handle the attachment in the active tab
+  
+  // Store the attachment request temporarily so content script can access it
+  const attachmentId = `attach_${Date.now()}_${Math.random()}`;
+  await chrome.storage.local.set({
+    [`pending_attachment_${attachmentId}`]: { docType, doc, attachmentId, timestamp: Date.now() }
   });
 
-  const response = await chrome.tabs.sendMessage(tab.id, { type: 'docs:attach', docType, doc });
-  return response;
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      chrome.storage.local.remove(`pending_attachment_${attachmentId}`);
+      chrome.runtime.onMessage.removeListener(listener);
+      reject(new Error('Attachment timeout'));
+    }, 10000);
+    
+    const listener = (message, msgSender, sendResponse) => {
+      if (message.type === 'docs:attach:response' && message.attachmentId === attachmentId) {
+        chrome.runtime.onMessage.removeListener(listener);
+        clearTimeout(timeout);
+        chrome.storage.local.remove(`pending_attachment_${attachmentId}`);
+        
+        if (message.ok) {
+          resolve(message.result);
+        } else {
+          reject(new Error(message.error || 'Attach failed'));
+        }
+        return true;
+      }
+    };
+    
+    chrome.runtime.onMessage.addListener(listener);
+    
+    // Since we can't send messages from background to content script without tabs permission,
+    // we'll use storage events. The content script listens for storage changes and processes
+    // pending attachments. We've already stored the attachment data above.
+    // Content script will detect the storage change and process it.
+  });
 }
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
@@ -113,8 +139,18 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
           return;
         }
         case 'docs:attach': {
-          const result = await attachDocumentToActiveTab(message.docType);
+          const result = await attachDocumentToActiveTab(message.docType, _sender);
           sendResponse({ ok: true, result });
+          return;
+        }
+        case 'docs:attach:get': {
+          // Content script requests the pending attachment data
+          const { [`pending_attachment_${message.attachmentId}`]: attachment } = await chrome.storage.local.get(`pending_attachment_${message.attachmentId}`);
+          if (attachment) {
+            sendResponse({ ok: true, attachment });
+          } else {
+            sendResponse({ ok: false, error: 'Attachment not found' });
+          }
           return;
         }
         default:

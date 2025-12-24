@@ -128,13 +128,75 @@ async function handleAttach(docType, doc) {
   return { ok: true, message: `Attached ${docType}` };
 }
 
+// Check for pending attachments on load
+(async () => {
+  if (document.visibilityState === 'visible') {
+    const allStorage = await chrome.storage.local.get(null);
+    Object.keys(allStorage).forEach(key => {
+      if (key.startsWith('pending_attachment_')) {
+        const attachmentId = key.replace('pending_attachment_', '');
+        const attachmentData = allStorage[key];
+        // Only process if it's recent (within last 30 seconds)
+        if (attachmentData.timestamp && Date.now() - attachmentData.timestamp < 30000) {
+          processAttachment(attachmentId, attachmentData);
+        }
+      }
+    });
+  }
+})();
+
+// Listen for storage changes to detect new attachment requests
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName !== 'local') return;
+  
+  // Check for pending attachment requests
+  Object.keys(changes).forEach(key => {
+    if (key.startsWith('pending_attachment_')) {
+      const attachmentId = key.replace('pending_attachment_', '');
+      const newValue = changes[key].newValue;
+      
+      if (newValue && document.visibilityState === 'visible') {
+        // We're in the active tab, process the attachment
+        processAttachment(attachmentId, newValue);
+      }
+    }
+  });
+});
+
+async function processAttachment(attachmentId, attachmentData) {
+  try {
+    const { docType, doc } = attachmentData;
+    
+    // Process the attachment
+    const result = await handleAttach(docType, doc);
+    
+    // Send response back to background
+    chrome.runtime.sendMessage({
+      type: 'docs:attach:response',
+      attachmentId,
+      ok: result.ok,
+      result: result.ok ? result : undefined,
+      error: result.ok ? undefined : (result.error || 'Attach failed')
+    });
+  } catch (error) {
+    chrome.runtime.sendMessage({
+      type: 'docs:attach:response',
+      attachmentId,
+      ok: false,
+      error: error?.message || 'Attach failed'
+    });
+  }
+}
+
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message?.type === 'docs:attach') {
+    // Legacy support - direct attachment with document data
     handleAttach(message.docType, message.doc)
       .then(result => sendResponse(result))
       .catch(error => sendResponse({ ok: false, error: error?.message || 'Attach failed' }));
     return true;
   }
+  
   return undefined;
 });
 
