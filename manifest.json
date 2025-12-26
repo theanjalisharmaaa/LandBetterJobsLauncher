@@ -21,18 +21,6 @@
   ],
   "permissions": [
     "activeTab",
-    "storage",
-    "scripting"
-  ],
-  "host_permissions": [
-    "*://*.workday.com/*",
-    "*://*.myworkdayjobs.com/*",
-    "*://*.lever.co/*",
-    "*://*.greenhouse.io/*",
-    "*://*.linkedin.com/*",
-    "*://*.indeed.com/*",
-    "*://*.ashbyhq.com/*",
-    "*://*.smartrecruiters.com/*",
-    "*://*/*"
+    "storage"
   ]
 }
